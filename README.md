@@ -1,2 +1,1 @@
-# spring-PetClinic
-# hello-spring
+# study-spring-kim
