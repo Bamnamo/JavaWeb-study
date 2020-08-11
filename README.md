@@ -1,1 +1,1 @@
-# study-spring-kim
+# JavaWeb-study
