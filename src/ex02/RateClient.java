@@ -1,19 +1,13 @@
-package ex01;
-
-import com.sun.org.apache.xml.internal.security.Init;
+package ex02;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.Socket;
 
-public class Calculator extends JFrame {
-    private static float USD_RATE = 1124.70F;
-    private static float JPY_RATE = 10.113F;
-    private static float CNY_RATE = 163.30F;
-    private static float GBP_RATE = 1444.35F;
-    private static float EUR_RATE = 1295.97F;
-
+public class RateClient extends JFrame {
     JLabel title = new JLabel("원화");
     JTextField operand1 = new JTextField(10);
     String[] opExpression = {"선택", "달러", "엔화", "위안", "파운드", "유로"};
@@ -21,7 +15,7 @@ public class Calculator extends JFrame {
     JTextField txtResult = new JTextField(10);
     JButton btnClear = new JButton("다시입력");
 
-    public Calculator() {
+    public RateClient() {
         Container contentPane = this.getContentPane();
         contentPane.setLayout(new FlowLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,13 +26,12 @@ public class Calculator extends JFrame {
     private void startFrame() {
         opSelection.addActionListener(new SelectionHandler());
         btnClear.addActionListener(new SelectionHandler());
-        this.setTitle("환율 계산하기");
-        this.add(title);
+        this.setTitle("클라이언트 프로그램");
         this.add(operand1);
         this.add(opSelection);
         this.add(txtResult);
         this.add(btnClear);
-        this.setSize(700,200);
+        this.setSize(700, 200);
 
     }
 
@@ -46,30 +39,12 @@ public class Calculator extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == opSelection) {
-                calulator();
+                calculate();
             } else if (e.getSource() == btnClear) {
                 init();
             }
-        }
-    }
 
-
-    private void calulator() {
-        float won = Float.parseFloat(operand1.getText());
-        String result = null;
-        String operator = opSelection.getSelectedItem().toString();
-        if (operator.equals("달러")) {
-            result = String.format("%.6f", won / USD_RATE);
-        } else if (operator.equals("엔화")) {
-            result = String.format("%.6f", won / JPY_RATE);
-        } else if (operator.equals("위안")) {
-            result = String.format("%.6f", won / CNY_RATE);
-        } else if (operator.equals("파운드")) {
-            result = String.format("%.6f", won / GBP_RATE);
-        } else if (operator.equals("유로")) {
-            result = String.format("%.6f", won / EUR_RATE);
         }
-        txtResult.setText(result);
     }
 
     private void init() {
@@ -77,8 +52,41 @@ public class Calculator extends JFrame {
         txtResult.setText("");
     }
 
+    private void calculate() {
+        float won = Integer.parseInt(operand1.getText());
+        String result = null;
+        String operator = opSelection.getSelectedItem().toString();
+
+        InputStream is;
+        BufferedReader br;
+        BufferedWriter bw;
+        OutputStream os;
+        PrintWriter pw = null;
+
+        try {
+            Socket s1 = new Socket("127.0.0.1", 5434);
+            os = s1.getOutputStream();
+            is = s1.getInputStream();
+            System.out.println("전송데이터:" + won + "," + operator);
+
+
+            bw = new BufferedWriter(new OutputStreamWriter(os));
+            pw = new PrintWriter(bw, true);
+            pw.println(won + "," + operator);
+
+            br = new BufferedReader(new InputStreamReader(is));
+            result = br.readLine();
+            System.out.println("클라이언트 수신 데이터:" + result);
+            txtResult.setText(result);
+            s1.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
-        Calculator calc = new Calculator();
+        RateClient calc = new RateClient();
         calc.startFrame();
+
     }
 }
