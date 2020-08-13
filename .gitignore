@@ -1,1 +1,14 @@
 # Created by .ignore support plugin (hsz.mobi)
+.idea/intellij-javadocs-4.0.1.xml
+src/pro05/.classpath
+src/pro05/.idea/.gitignore
+src/pro05/.idea/dbnavigator.xml
+src/pro05/.idea/intellij-javadocs-4.0.1.xml
+src/pro05/.idea/misc.xml
+src/pro05/.idea/modules.xml
+src/pro05/.project
+src/pro05/.settings/
+src/pro05/WebContent/
+src/pro05/build/
+src/pro05/pro05.iml
+src/pro05/src/
