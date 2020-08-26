@@ -17,13 +17,11 @@ public class MemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doHandle(request, response);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doHandle(request, response);
-
 	}
 
 	private void doHandle(HttpServletRequest request, HttpServletResponse response)
@@ -32,11 +30,10 @@ public class MemberServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		MemberDAO dao = new MemberDAO();
-		List memberList = dao.listMembers();
-		request.setAttribute("memberList", memberList);
+		List membersList = dao.listMembers();
+		request.setAttribute("membersList", membersList);
 		RequestDispatcher dispatch = request.getRequestDispatcher("viewMembers");
 		dispatch.forward(request, response);
-
 	}
 
 }

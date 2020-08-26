@@ -1,5 +1,6 @@
 package sec04.ex03;
 
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -12,8 +13,8 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class MemberDAO {
-	private PreparedStatement pstmt;
 	private Connection con;
+	private PreparedStatement pstmt;
 	private DataSource dataFactory;
 
 	public MemberDAO() {
@@ -29,13 +30,12 @@ public class MemberDAO {
 	public List listMembers() {
 		List list = new ArrayList();
 		try {
-			// coonDB();
+			// connDB();
 			con = dataFactory.getConnection();
-			String query = "select*from t_member";
-			System.out.println("prepareStatement:" + query);
+			String query = "select * from t_member ";
+			System.out.println("prepareStatememt: " + query);
 			pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				String id = rs.getString("id");
 				String pwd = rs.getString("pwd");
@@ -61,16 +61,15 @@ public class MemberDAO {
 
 	public void addMember(MemberVO memberVO) {
 		try {
-			con = dataFactory.getConnection();
+			Connection con = dataFactory.getConnection();
 			String id = memberVO.getId();
 			String pwd = memberVO.getPwd();
 			String name = memberVO.getName();
 			String email = memberVO.getEmail();
-
 			String query = "insert into t_member";
 			query += " (id,pwd,name,email)";
 			query += " values(?,?,?,?)";
-			System.out.println("prepareStatement: " + query);
+			System.out.println("prepareStatememt: " + query);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
@@ -85,9 +84,10 @@ public class MemberDAO {
 
 	public void delMember(String id) {
 		try {
-			con = dataFactory.getConnection();
+			Connection con = dataFactory.getConnection();
+			Statement stmt = con.createStatement();
 			String query = "delete from t_member" + " where id=?";
-			System.out.println("prepareStatement:" + query);
+			System.out.println("prepareStatememt:" + query);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
@@ -96,4 +96,5 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
+
 }
