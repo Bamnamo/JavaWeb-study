@@ -1,0 +1,12 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트에서 쿠키 사용</title>
+<script type="text/javascript"></script>
+window.onload=pageLoad; function pageLoad(){
+notShowPop=getCookieValue(); if(notShowPop!="true"){
+window.open("popUp.html", "pop",
+"width=400,height=500,history=no,resizable=no, status=no,
+scrollbars=yes,menubar=no"); } }
+</head>
+</html>
