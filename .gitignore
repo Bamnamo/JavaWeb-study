@@ -12,3 +12,6 @@ src/pro05/WebContent/
 src/pro05/build/
 src/pro05/pro05.iml
 src/pro05/src/
+*.class
+pro05/WebContent/WEB-INF/lib/
+pro06/WebContent/WEB-INF/lib/
