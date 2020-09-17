@@ -43,7 +43,7 @@ public class FileUpload extends HttpServlet {
 	private void doHandle(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 			String encoding = "utf-8";
-			File currentDirPath = new File("/Users/parkseongbeom/file_reppo");
+			File currentDirPath = new File("~/file_reppo");
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			factory.setRepository(currentDirPath);
 			factory.setSizeThreshold(1024 * 1024);
