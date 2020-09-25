@@ -79,7 +79,7 @@ public class MemberDAO {
 		MemberVO memInfo = null;
 		try {
 			conn = dataFactory.getConnection();
-			String query = "select *from t_member where id=?";
+			String query = "select * from  t_member where id=?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, _id);
 			System.out.println(query);
@@ -106,7 +106,7 @@ public class MemberDAO {
 		String email = memberVO.getEmail();
 		try {
 			conn = dataFactory.getConnection();
-			String query = "update t_member set pwd=?,nema=?,email=? where id=?";
+			String query = "update t_member set pwd=?,name=?,email=?  where id=?";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, pwd);
@@ -127,10 +127,11 @@ public class MemberDAO {
 			String query = "delete from t_member where id=?";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, id);
+			pstmt.setString(1,id);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 }
