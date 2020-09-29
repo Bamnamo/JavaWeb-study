@@ -5,41 +5,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/board/*")
+
+//@WebServlet("/board/*")
 public class BoardController extends HttpServlet {
-
+	private static final long serialVersionUID = 1L;
 	BoardService boardService;
-	ArticleVO articleNO;
+	ArticleVO articleVO;
 
-	public void init() throws ServletException {
+	
+	public void init(ServletConfig config) throws ServletException {
 		boardService = new BoardService();
 	}
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 		doHandle(request, response);
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 		doHandle(request, response);
 	}
 
-	private void doHandle(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void doHandle(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 		String nextPage = "";
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		String action = request.getPathInfo();
-		System.out.println("action: " + action);
+		System.out.println("action:" + action);
 		try {
 			List<ArticleVO> articlesList = new ArrayList<ArticleVO>();
 			if (action == null) {
@@ -50,15 +51,15 @@ public class BoardController extends HttpServlet {
 				articlesList = boardService.listArticles();
 				request.setAttribute("articlesList", articlesList);
 				nextPage = "/board01/listArticles.jsp";
-			} else {
+			}else {
 				nextPage = "/board01/listArticles.jsp";
 			}
-			RequestDispatcher dispath = request.getRequestDispatcher(nextPage);
-			dispath.forward(request, response);
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
+			dispatch.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }

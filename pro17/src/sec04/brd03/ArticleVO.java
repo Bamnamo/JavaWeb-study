@@ -1,5 +1,7 @@
-package sec04.brd01;
+package sec04.brd03;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Date;
 
 public class ArticleVO {
@@ -26,7 +28,6 @@ public class ArticleVO {
 		this.content = content;
 		this.imageFileName = imageFileName;
 		this.id = id;
-		this.writeDate = writeDate;
 	}
 
 	public int getLevel() {
@@ -74,7 +75,13 @@ public class ArticleVO {
 	}
 
 	public void setImageFileName(String imageFileName) {
-		this.imageFileName = imageFileName;
+		try {
+			if (imageFileName != null && imageFileName.length() != 0) {
+				this.imageFileName = URLEncoder.encode(imageFileName, "UTF-8"); // 파일이름에 특수문자가 있을 경우 인코딩합니다.
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String getId() {
@@ -92,5 +99,4 @@ public class ArticleVO {
 	public void setWriteDate(Date writeDate) {
 		this.writeDate = writeDate;
 	}
-
 }

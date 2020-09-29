@@ -12,38 +12,40 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class BoardDAO {
-
 	private DataSource dataFactory;
 	Connection conn;
 	PreparedStatement pstmt;
-	
+
 	public BoardDAO() {
 		try {
-			Context ctx  = InitialContext();
+			Context ctx = new InitialContext();
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
-			dataFactory=(DataSource) envContext.lookup("jdbc/oracle");
+			dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List selectAllArticles() {
-		List articlesList=new ArrayList();
+		List articlesList = new ArrayList();
 		try {
-			conn=dataFactory.getConnection();
-			String query = "SELECT LEVEL,articleNO,parentNO,title,content,id,writeDate"+"from t_Board"+"START WITH parentNO=0"+"CONNECT BY PRIOR articleNO=parentNO"+"ORDER SIBLINGS BY articleNO DESC";
+			conn = dataFactory.getConnection();
+			String query = "SELECT LEVEL,articleNO,parentNO,title,content,id,writeDate" 
+			             + " from t_board"
+					     + " START WITH  parentNO=0" + " CONNECT BY PRIOR articleNO=parentNO"
+					     + " ORDER SIBLINGS BY articleNO DESC";
 			System.out.println(query);
-			pstmt=conn.prepareStatement(query);
-			ResultSet rs=pstmt.executeQuery();
+			pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				int level=rs.getInt("level");
-				int articleNO=rs.getInt("articleNO");
-				int parentNO=rs.getInt("parentNO");
-				String title=rs.getString("title");
-				String content=rs.getString("content");
-				String id=rs.getString("id");
-				Date writeDate=rs.getDate("writeDate");
-				ArticleVO article =new ArticleVO();
+				int level = rs.getInt("level");
+				int articleNO = rs.getInt("articleNO");
+				int parentNO = rs.getInt("parentNO");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				String id = rs.getString("id");
+				Date writeDate = rs.getDate("writeDate");
+				ArticleVO article = new ArticleVO();
 				article.setLevel(level);
 				article.setArticleNO(articleNO);
 				article.setParentNO(parentNO);
