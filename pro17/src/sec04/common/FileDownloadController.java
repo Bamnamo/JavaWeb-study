@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/download.do")
 public class FileDownloadController extends HttpServlet {
-	private static String ARTICLE_IMAGE_REPO = "/Users/parkseongbeom/Desktop/board";
-
+	private static String ARTICLE_IMAGE_REPO = "/Users/parkseongbeom/board/article_image";
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

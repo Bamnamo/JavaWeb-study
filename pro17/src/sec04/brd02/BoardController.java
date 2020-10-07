@@ -24,7 +24,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 //@WebServlet("/board/*")
 public class BoardController extends HttpServlet {
-	private static String ARTICLE_IMAGE_REPO = " /Users/parkseongbeom/Desktop/board/article_image";
+	private static String ARTICLE_IMAGE_REPO = "/Users/parkseongbeom/Desktop/board/article_image";
 	BoardService boardService;
 	ArticleVO articleVO;
 

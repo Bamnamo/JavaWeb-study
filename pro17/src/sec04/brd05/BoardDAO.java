@@ -1,4 +1,4 @@
-package sec04.brd04;
+package sec04.brd05;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -144,6 +144,36 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		return article;
+	}
+
+	public void updateArticle(ArticleVO article) {
+		int articleNO = article.getArticleNO();
+		String title = article.getTitle();
+		String content = article.getContent();
+		String imageFileName = article.getImageFileName();
+		try {
+			conn = dataFactory.getConnection();
+			String query = "update t_Board set title=?,content=?";
+			if (imageFileName != null && imageFileName.length() != 0) {
+				query += ",imageFileName=?";
+			}
+			query += " where articleNO=?";
+			System.out.println(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			if (imageFileName != null && imageFileName.length() != 0) {
+				pstmt.setString(3, imageFileName);
+				pstmt.setInt(4, articleNO);
+			} else {
+				pstmt.setInt(3, articleNO);
+			}
+			pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
