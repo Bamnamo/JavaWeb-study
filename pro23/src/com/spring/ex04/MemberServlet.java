@@ -1,5 +1,6 @@
 package com.spring.ex04;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,17 +62,48 @@ public class MemberServlet extends HttpServlet {
 			dao.insertMember(memberVO);
 			nextPage = "/mem4.do?action=listMembers";
 		} else if (action.equals("insertMember2")) {
-			String id=request.getParameter("id");
-	           String pwd=request.getParameter("pwd");
-	           String name=request.getParameter("name");
-	           String email = request.getParameter("email");         
-	           Map<String, String> memberMap=new HashMap<String, String>();
-	           memberMap.put("id", id);
-	           memberMap.put("pwd", pwd);
-	           memberMap.put("name", name);
-	           memberMap.put("email", email);
-	           dao.insertMember2(memberMap);
-	           nextPage="/mem4.do?action=listMembers";
+			String id = request.getParameter("id");
+			String pwd = request.getParameter("pwd");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			Map<String, String> memberMap = new HashMap<String, String>();
+			memberMap.put("id", id);
+			memberMap.put("pwd", pwd);
+			memberMap.put("name", name);
+			memberMap.put("email", email);
+			dao.insertMember2(memberMap);
+			nextPage = "/mem4.do?action=listMembers";
+		} else if (action.equals("updateMember")) {
+			String id = request.getParameter("id");
+			String pwd = request.getParameter("pwd");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			memberVO.setId(id);
+			memberVO.setPwd(pwd);
+			memberVO.setName(name);
+			memberVO.setEmail(email);
+			dao.updateMember(memberVO);
+			nextPage = "/mem4.do?action=listMembers";
+		} else if (action.equals("deleteMember")) {
+			String id = request.getParameter("id");
+			dao.deleteMember(id);
+			nextPage = "/mem4.do?action=listMembers";
+		} else if (action.equals("searchMember")) {
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			memberVO.setName(name);
+			memberVO.setEmail(email);
+			List<MemberVO> membersList = dao.searchMember(memberVO);
+			request.setAttribute("membersList", membersList);
+			nextPage = "test03/listMembers.jsp";
+		} else if (action.equals("forsearchSelect")) {
+			List<String> nameList = new ArrayList<String>();
+			nameList.add("홍길동");
+			nameList.add("차범근");
+			nameList.add("이순신");
+			List<MemberVO> membersList = dao.foreachSelect(nameList);
+			request.setAttribute("membersList", membersList);
+			nextPage = "test03/listMembers.jsp";
 		}
 		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 		dispatch.forward(request, response);

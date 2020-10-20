@@ -67,4 +67,35 @@ public class MemberDAO {
 		session.commit();
 		return result;
 	}
+
+	public int updateMember(MemberVO memberVO) {
+		sqlMapper = getInstance();
+		SqlSession session = sqlMapper.openSession();
+		int result = session.update("mapper.member.updateMember", memberVO);
+		session.commit();
+		return result;
+	}
+
+	public int deleteMember(String id) {
+		sqlMapper = getInstance();
+		SqlSession session = sqlMapper.openSession();
+		int result = 0;
+		result = session.delete("mapper.member.deleteMember", id);
+		session.commit();
+		return result;
+	}
+
+	public List<MemberVO> searchMember(MemberVO memberVO) {
+		sqlMapper = getInstance();
+		SqlSession session = sqlMapper.openSession();
+		List list = session.selectList("mapper.member.searchMember", memberVO);
+		return list;
+	}
+
+	public List<MemberVO>  foreachSelect(List nameList){
+        sqlMapper=getInstance();
+        SqlSession session=sqlMapper.openSession();
+        List list=session.selectList("mapper.member.foreachSelect",nameList);
+        return list;		
+    }
 }
