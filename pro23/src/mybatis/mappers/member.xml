@@ -129,7 +129,7 @@
 
 	<select id="foreachSelect" resultMap="memResult"
 		parameterType="java.util.Map">
-		<!-- <include refid="a" /> -->
+		 <include refid="a" /> 
       <![CDATA[
         select * from t_member 
           
@@ -143,19 +143,28 @@
 		order by joinDate desc
 	</select>
 
+
 	<insert id="foreachInsert" parameterType="java.util.Map">
 		<foreach item="item" collection="list" open="INSERT ALL"
 			separator=" " close="SELECT * FROM DUAL">
 			INTO t_member(id, pwd, name, email)
-			VALUES (#{item.id},
+			VALUES
+			(#{item.id},
 			#{item.pwd},
 			#{item.name},
 			#{item.email})
 		</foreach>
 	</insert>
 
-	<!-- <select id="selectLike" resultMap="memResult" parameterType="String" 
-		> <![CDATA[ select * from t_member where name like '%'#{name}'%' ]]> </select> -->
+
+	<!-- 
+	<select id="selectLike" resultMap="memResult" parameterType="String"> 
+	<![CDATA[ 
+	select * from t_member where name like '%'#{name}'%' 
+	]]> 
+	</select> 
+	-->
+	
 	<!-- like 검색 -->
 	<select id="selectLike" resultMap="memResult"
 		parameterType="String">
