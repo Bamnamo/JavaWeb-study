@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.spring.member.dao.MemberDAO;
 import com.spring.member.vo.MemberVO;
 
-
+/*@Transactional(propagation=Propagation.REQUIRED) */
 public class MemberServiceImpl  implements MemberService{
 	   private MemberDAO memberDAO;
 	   public void setMemberDAO(MemberDAO memberDAO){
@@ -34,3 +34,4 @@ public class MemberServiceImpl  implements MemberService{
 	      return memberDAO.deleteMember(id);
 	   }
 }
+

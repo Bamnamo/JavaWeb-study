@@ -2,6 +2,8 @@ package com.spring.member.vo;
 
 import java.sql.Date;
 
+import java.sql.Date;
+
 public class MemberVO {
 	private String id;
 	private String pwd;
@@ -59,4 +61,5 @@ public class MemberVO {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
+
 }
