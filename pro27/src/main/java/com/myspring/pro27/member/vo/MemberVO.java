@@ -1,4 +1,4 @@
-package com.spring.member.vo;
+package com.myspring.pro27.member.vo;
 
 import java.sql.Date;
 
@@ -13,7 +13,14 @@ public class MemberVO {
 	private Date joinDate;
 
 	public MemberVO() {
+		
+	}
 
+	public MemberVO(String id, String pwd, String name, String email) {
+		this.id = id;
+		this.pwd = pwd;
+		this.name = name;
+		this.email = email;
 	}
 
 	public String getId() {
@@ -56,10 +63,4 @@ public class MemberVO {
 		this.joinDate = joinDate;
 	}
 
-	public MemberVO(String id, String pwd, String name, String email) {
-		this.id = id;
-		this.pwd = pwd;
-		this.name = name;
-		this.email = email;
-	}
 }
