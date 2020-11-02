@@ -21,15 +21,16 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
-	
+	<!--  
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<beans:property name="prefix" value="/WEB-INF/views/" /> 
 		<beans:property name="suffix" value=".jsp" /> 
 	</beans:bean>
+	-->
   <context:component-scan	base-package="com.myspring.pro27" />
 
 <!-- 타일즈 실습 설정 -->
- <!-- 
+  
  
     <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<beans:property name="definitions">
@@ -40,11 +41,13 @@
 		<beans:property name="preparerFactoryClass"
 			          value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory" />
 	</beans:bean>
+	
 	<beans:bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+	
 	</beans:bean>
--->
+
 <!-- 인터셉터 실습 설정 -->
 <!--     
     
