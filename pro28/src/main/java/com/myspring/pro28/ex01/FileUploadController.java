@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class FileUploadController {
-	private static String CURR_IMAGE_REPO_PATH = "/Users/parkseongbeom/spring";
+	private static String CURR_IMAGE_REPO_PATH = "/Users/parkseongbeom/spring/image_repo/";
 
 	@RequestMapping(value = "/form")
 	public String form() {
