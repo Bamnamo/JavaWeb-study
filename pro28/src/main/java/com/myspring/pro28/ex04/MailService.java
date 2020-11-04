@@ -1,4 +1,4 @@
-package com.myspring.pro28.ex03;
+package com.myspring.pro28.ex04;
 
 import javax.mail.internet.MimeMessage;
 
@@ -10,33 +10,25 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-//@Service("mailService")
+@Service("mailService")
 public class MailService {
 	@Autowired
 	private JavaMailSender mailSender;
 	@Autowired
-	private SimpleMailMessage preConfiguredMessage;
+	private SimpleMailMessage proConfiguredMessage;
 
 	@Async
 	public void sendMail(String to, String subject, String body) {
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setCc("####@naver.com");
-			messageHelper.setFrom("shivash@naver.com", "홍길동");
 			messageHelper.setSubject(subject);
 			messageHelper.setTo(to);
-			messageHelper.setText(body);
+			messageHelper.setFrom("shivash@naver.com", "홍길동");
+			messageHelper.setText(body, true);
 			mailSender.send(message);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Async
-	public void sendPreConfiguredMail(String message) {
-		SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
-		mailMessage.setText(message);
-		mailSender.send(mailMessage);
 	}
 }
