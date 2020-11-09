@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test/*")
 public class TestController {
-	
-	static Logger logger=LoggerFactory.getLogger(TestController.class);
+
+	static Logger logger = LoggerFactory.getLogger(TestController.class);
 
 	@RequestMapping("/hello")
 	public String hello() {
@@ -70,9 +70,34 @@ public class TestController {
 	public int notice(@PathVariable("num") int num) throws Exception {
 		return num;
 	}
-	
-	@RequestMapping(value = "/info", method= RequestMethod.POST)
+
+	@RequestMapping(value = "/info", method = RequestMethod.POST)
 	public void modify(@RequestBody MemberVO vo) {
 		logger.info(vo.toString());
+	}
+
+	@RequestMapping("/membersList2")
+	public ResponseEntity<List<MemberVO>> listMembers2() {
+		List<MemberVO> list = new ArrayList<MemberVO>();
+		for (int i = 0; i < 10; i++) {
+			MemberVO vo = new MemberVO();
+			vo.setId("lee" + i);
+			vo.setPwd("123" + i);
+			vo.setName("이순신" + i);
+			vo.setEmail("lee" + i + "@test.com");
+			list.add(vo);
+		}
+		return new ResponseEntity(list, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@RequestMapping(value = "/res3")
+	public ResponseEntity res3() {
+		HttpHeaders responseHeaders = new HttpHeaders();
+	    responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+	    String message = "<script>";
+		message += " alert('새 회원을 등록합니다.');";
+		message += " location.href='/pro29/test/membersList2'; ";
+		message += " </script>";
+		return  new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 	}
 }
