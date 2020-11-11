@@ -25,6 +25,8 @@ import com.myspring.pro30.member.vo.MemberVO;
 @Controller("memberController")
 //@EnableAspectJAutoProxy
 public class MemberControllerImpl   implements MemberController {
+	
+	
 	@Autowired
 	private MemberService memberService;
 	@Autowired
@@ -130,6 +132,17 @@ public class MemberControllerImpl   implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
+	/*
+	@RequestMapping(value = "/member/*Form.do", method = RequestMethod.GET)
+	public ModelAndView login(@ModelAttribute("member")MemberVO member, RedirectAttributes rAttr, HttpServletRequest request,HttpServletResponse response)throws Exception{
+		String viewName=(String)request.getAttribute("viewName");
+		HttpSession session=request.getSession();
+		session.setAttribute("action", action);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("result",result);
+		mav.setViewName(viewName);
+		return mav;
+	}*/
 	
 
 	private String getViewName(HttpServletRequest request) throws Exception {
