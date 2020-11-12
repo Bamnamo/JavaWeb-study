@@ -21,7 +21,7 @@ public class FileDownloadController {
 							@RequestParam("articleNO") String articleNO,
 			                 HttpServletResponse response)throws Exception {
 		OutputStream out = response.getOutputStream();
-		String downFile = ARTICLE_IMAGE_REPO + "\\" +articleNO+"\\"+ imageFileName;
+		String downFile = ARTICLE_IMAGE_REPO + "//" +articleNO+"//"+ imageFileName;
 		File file = new File(downFile);
 
 		response.setHeader("Cache-Control", "no-cache");
